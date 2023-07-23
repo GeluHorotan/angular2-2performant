@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -72,6 +72,9 @@ export class AuthService {
         if (response && response.user) {
           this.setUser(response.user, rememberMe);
         }
+      }),
+      catchError((error) => {
+        return throwError(() => error);
       })
     );
   }

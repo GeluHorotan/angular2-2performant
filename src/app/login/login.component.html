@@ -4,6 +4,11 @@
   >
     <h1 class="text-3xl font-bold">Login</h1>
     <form (ngSubmit)="login()" class="flex flex-col gap-4">
+      <div *ngIf="errors.length > 0">
+        <div class="text-red-400" *ngFor="let error of errors">
+          {{ error.title }}
+        </div>
+      </div>
       <label class="text-xl">Email:</label>
       <input
         type="email"

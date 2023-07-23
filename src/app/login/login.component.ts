@@ -12,6 +12,7 @@ export class LoginComponent {
     password: '',
   };
   rememberMe = false;
+  errors: { title: string }[] = [];
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -21,9 +22,11 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           console.log('Login successful!', response.user);
+          this.router.navigate(['/account']);
         },
-        error: (error) => {
-          console.error('Login failed!', error);
+        error: (err) => {
+          this.errors = err.error.errors;
+          console.log(this.errors);
         },
       });
   }
