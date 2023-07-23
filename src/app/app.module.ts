@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { AccountComponent } from './account/account.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './services/auth.service';
+import { LayoutComponent } from './shared/layout/layout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
     LoginComponent,
     AccountComponent,
     NotFoundComponent,
+    LayoutComponent,
   ],
   imports: [BrowserModule, RouterModule.forRoot(routes)],
   providers: [AuthService],
