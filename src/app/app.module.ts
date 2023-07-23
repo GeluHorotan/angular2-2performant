@@ -10,11 +10,12 @@ import { AuthService } from './services/auth.service';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'account', component: AccountComponent },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404' }, // Redirect all other routes to 404 component
 ];
