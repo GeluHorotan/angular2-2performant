@@ -12,12 +12,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './services/auth.guard';
 import { HeaderComponent } from './shared/header/header.component';
+import { UnderConstructionComponent } from './under-construction/under-construction.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: '404', component: NotFoundComponent },
+  { path: 'careers', component: UnderConstructionComponent },
   { path: '**', redirectTo: '/404' }, // Redirect all other routes to 404 component
 ];
 
@@ -30,6 +32,7 @@ const routes: Routes = [
     NotFoundComponent,
     LayoutComponent,
     HeaderComponent,
+    UnderConstructionComponent,
   ],
   imports: [
     BrowserModule,

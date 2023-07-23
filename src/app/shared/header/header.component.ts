@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   navItems = [
     { title: 'Home', link: '/' },
     { title: 'About', link: '/about' },
-    { title: 'Careers', link: '/under-construction' },
+    { title: 'Careers', link: '/careers' },
   ];
 
   accountItem: { title: string; link: string } = { title: '', link: '' };
