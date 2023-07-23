@@ -1,0 +1,73 @@
+<nav class="px-14 py-4 fixed w-full">
+  <!-- Desktop view -->
+  <ul class="hidden md:flex items-center justify-between uppercase text-white">
+    <li class="hover:text-yellow-400 duration-200 ease-in-out transition-all">
+      <a [routerLink]="'/'">Angular.JS {{ angularVersion }}</a>
+    </li>
+    <div class="flex md:gap-20 lg:gap-40">
+      <div class="flex gap-12">
+        <li
+          *ngFor="let item of navItems"
+          class="hover:text-yellow-400 duration-200 ease-in-out transition-all"
+        >
+          <a [routerLink]="item.link">{{ item.title }}</a>
+        </li>
+      </div>
+      <li class="hover:text-yellow-400 duration-200 ease-in-out">
+        <a [routerLink]="accountItem.link">{{ accountItem.title }}</a>
+      </li>
+    </div>
+  </ul>
+
+  <!-- Mobile view - Sidebar -->
+  <div class="md:hidden fixed z-20 top-4 right-4">
+    <button
+      class="text-white hover:text-yellow-400 transition-all duration-200 ease-in-out focus:outline-none"
+      (click)="toggleSidebar()"
+      tabindex="0"
+    >
+      <i *ngIf="!showSidebar" class="fas fa-bars text-2xl"></i>
+      <i *ngIf="showSidebar" class="fas fa-times text-2xl"></i>
+    </button>
+  </div>
+
+  <div class="fixed top-4 left-4 z-20">
+    <ul>
+      <li
+        class="hover:text-yellow-400 text-white uppercase md:hidden"
+        (click)="closeSidebar()"
+      >
+        <a [routerLink]="'/'">Angular.JS {{ angularVersion }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Mobile view - Sidebar Content -->
+  <div
+    class="sidebar bg-gray-900 w-full py-40 h-full fixed top-0 left-0 transform"
+    [ngClass]="{
+      '-translate-x-full': !showSidebar,
+      'translate-x-0': showSidebar
+    }"
+  >
+    <ul
+      class="flex flex-col items-start justify-start h-full py-10 px-6 text-white uppercase"
+    >
+      <li
+        class="hover:text-yellow-400 transition-all duration-200 ease-in-out"
+        (click)="toggleSidebar()"
+      >
+        <a [routerLink]="accountItem.link">{{ accountItem.title }}</a>
+      </li>
+      <div class="flex flex-col gap-4">
+        <li
+          *ngFor="let item of navItems"
+          (click)="toggleSidebar()"
+          class="hover:text-yellow-400 transition-all duration-200 ease-in-out mb-4"
+        >
+          <a [routerLink]="item.link">{{ item.title }}</a>
+        </li>
+      </div>
+    </ul>
+  </div>
+</nav>

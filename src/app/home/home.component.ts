@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   currentTime: string = '';
   isLoggedIn: boolean = false;
   accountItem: { title: string; link: string } = { title: '', link: '' };
-
+  addExtraClass: boolean = true;
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {

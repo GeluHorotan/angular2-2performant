@@ -11,6 +11,7 @@ import { LayoutComponent } from './shared/layout/layout.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './services/auth.guard';
+import { HeaderComponent } from './shared/header/header.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
     AccountComponent,
     NotFoundComponent,
     LayoutComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
