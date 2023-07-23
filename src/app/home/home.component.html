@@ -15,11 +15,12 @@
     >
       <a href="/login">LOGIN</a>
     </button>
-    <button
-      *ngIf="isLoggedIn"
-      class="px-4 py-2 text-white rounded-lg border-2 border-pink-600 transition-all duration-200 ease-in-out"
-    >
-      <a [routerLink]="accountItem.link">{{ accountItem.title }}</a>
+    <button *ngIf="isLoggedIn" class="w-full">
+      <a
+        class="px-4 py-2 sm:w-1/2 background-primary text-white rounded-lg hover:bg-pink-600 txt-primary transition-all duration-200 ease-in-out"
+        [routerLink]="accountItem.link"
+        >{{ accountItem.title }}</a
+      >
     </button>
   </div>
 </div>
