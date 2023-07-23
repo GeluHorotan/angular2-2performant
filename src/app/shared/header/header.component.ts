@@ -22,21 +22,19 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn();
-    this.updateAccountItem();
-
     this.authService.authStatusChanged.subscribe((loggedIn: boolean) => {
       this.isLoggedIn = loggedIn;
-      this.updateAccountItem();
+      this.updateHeader();
     });
+
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.updateHeader();
   }
 
-  updateAccountItem() {
-    if (this.isLoggedIn) {
-      this.accountItem = { title: 'Account', link: '/account' };
-    } else {
-      this.accountItem = { title: 'Login', link: '/login' };
-    }
+  updateHeader() {
+    this.accountItem = this.isLoggedIn
+      ? { title: 'Account', link: '/account' }
+      : { title: 'Login', link: '/login' };
   }
 
   toggleSidebar() {

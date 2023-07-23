@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  tap,
+  throwError,
+  Subject,
+  BehaviorSubject,
+} from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -14,7 +21,9 @@ export class AuthService {
     rememberMe: false,
   };
 
-  authStatusChanged: any;
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  authStatusChanged: Observable<boolean> =
+    this.isLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
     this.loadUserState();
@@ -62,6 +71,7 @@ export class AuthService {
     this.userState.user = null;
     this.clearUserState();
     this.router.navigate(['/login']);
+    this.isLoggedInSubject.next(false);
   }
 
   login(email: string, password: string, rememberMe: boolean): Observable<any> {
@@ -69,6 +79,7 @@ export class AuthService {
       email: email,
       password: password,
     };
+    this.isLoggedInSubject.next(true);
     return this.http.post<any>(this.apiUrl, { user }).pipe(
       tap((response) => {
         if (response && response.user) {

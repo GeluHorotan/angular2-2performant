@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -16,18 +15,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateTime();
-    this.isLoggedIn = this.authService.isLoggedIn();
     this.authService.authStatusChanged.subscribe((loggedIn: boolean) => {
       this.isLoggedIn = loggedIn;
       this.updateAccountItem();
     });
+
+    this.updateAccountItem();
   }
 
   updateTime(): void {
     this.currentTime = new Date().toLocaleString();
-    interval(1000).subscribe(() => {
-      this.currentTime = new Date().toLocaleString();
-    });
   }
 
   updateAccountItem(): void {
