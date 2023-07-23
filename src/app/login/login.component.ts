@@ -26,7 +26,9 @@ export class LoginComponent {
         },
         error: (err) => {
           this.errors = err.error.errors;
-          console.log(this.errors);
+          setTimeout(() => {
+            this.errors = [];
+          }, 3000);
         },
       });
   }
