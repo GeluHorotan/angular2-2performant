@@ -15,16 +15,16 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  login() {
-    this.authService.login(this.user.email, this.user.password).subscribe(
-      (response) => {
-        console.log('Login successful!', response);
-        this.authService.setUser(response.data.user, this.rememberMe);
-        this.router.navigate(['/account']);
-      },
-      (error) => {
-        console.log('Login failed!', error);
-      }
-    );
+  login(): void {
+    this.authService
+      .login(this.user.email, this.user.password, this.rememberMe)
+      .subscribe({
+        next: (response) => {
+          console.log('Login successful!', response.user);
+        },
+        error: (error) => {
+          console.error('Login failed!', error);
+        },
+      });
   }
 }

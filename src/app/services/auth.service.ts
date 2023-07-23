@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,12 @@ export class AuthService {
     this.loadUserState();
   }
 
+  setUser(userData: any, shouldRemember: boolean): void {
+    this.userState.user = userData;
+    this.userState.rememberMe = shouldRemember;
+    this.saveUserState();
+  }
+
   private saveUserState(): void {
     const storage = this.userState.rememberMe ? localStorage : sessionStorage;
     storage.setItem('userState', JSON.stringify(this.userState));
@@ -28,7 +34,8 @@ export class AuthService {
     const savedUserState =
       JSON.parse(localStorage.getItem('userState')!) ||
       JSON.parse(sessionStorage.getItem('userState')!);
-    if (savedUserState) {
+
+    if (savedUserState && savedUserState.user) {
       this.userState = savedUserState;
     }
   }
@@ -46,12 +53,6 @@ export class AuthService {
     return this.userState.user;
   }
 
-  setUser(userData: any, shouldRemember: boolean): void {
-    this.userState.user = userData;
-    this.userState.rememberMe = shouldRemember;
-    this.saveUserState();
-  }
-
   isLoggedIn(): boolean {
     return this.userState.user !== null;
   }
@@ -61,12 +62,17 @@ export class AuthService {
     this.clearUserState();
   }
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string, rememberMe: boolean): Observable<any> {
     const user = {
       email: email,
       password: password,
     };
-    console.log(this.apiUrl, 'apiURl');
-    return this.http.post<any>(this.apiUrl, { user });
+    return this.http.post<any>(this.apiUrl, { user }).pipe(
+      tap((response) => {
+        if (response && response.user) {
+          this.setUser(response.user, rememberMe);
+        }
+      })
+    );
   }
 }
