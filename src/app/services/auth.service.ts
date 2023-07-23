@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://api.2performant.com/users/sign_in';
+  private apiUrl = '/api/users/sign_in';
 
   private userState = {
     user: null,
@@ -66,6 +66,7 @@ export class AuthService {
       email: email,
       password: password,
     };
+    console.log(this.apiUrl, 'apiURl');
     return this.http.post<any>(this.apiUrl, { user });
   }
 }
