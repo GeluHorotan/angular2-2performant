@@ -1,5 +1,27 @@
 <div
   class="h-screen w-full items-start justify-center flex flex-col text-white gap-8"
 >
-  <p></p>
+  <div class="flex flex-col gap-2">
+    <h1>2Performant</h1>
+    <h6>DEDICATED TO MARKETING SUPERHEROES</h6>
+  </div>
+  <div class="flex gap-4">
+    <button
+      class="px-4 py-2 bg-pink-600 text-white rounded-lg transition-all duration-200 ease-in-out"
+    >
+      <a href="/under-construction">CAREERS</a>
+    </button>
+    <button
+      *ngIf="!isLoggedIn"
+      class="px-4 py-2 text-white rounded-lg border-2 border-pink-600 transition-all duration-200 ease-in-out"
+    >
+      <a href="/login">LOGIN</a>
+    </button>
+    <button
+      *ngIf="isLoggedIn"
+      class="px-4 py-2 text-white rounded-lg border-2 border-pink-600 transition-all duration-200 ease-in-out"
+    >
+      <a [routerLink]="accountItem.link">{{ accountItem.title }}</a>
+    </button>
+  </div>
 </div>

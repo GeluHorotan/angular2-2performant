@@ -8,6 +8,7 @@ export class AuthService {
     user: null,
     rememberMe: false,
   };
+  authStatusChanged: any;
   constructor() {
     this.loadUserState();
   }

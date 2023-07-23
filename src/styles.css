@@ -1,3 +1,71 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-image: url("assets/circle-background.svg");
+  background-size: cover;
+  background-position: center;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+.txt-primary {
+  color: white;
+}
+.txt-primary:hover {
+  color: #001220;
+}
+.background-primary {
+  background-color: #001220;
+}
+
+li {
+  font-size: 1rem;
+  letter-spacing: 0.025em;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 3.75rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.05em;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.025em;
+}
+h3 {
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 2.5rem;
+}
+
+h4 {
+  font-size: 1.875rem;
+  font-weight: 500;
+  line-height: 2.25rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 500;
+}
+
+h6 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: 400;
+}
