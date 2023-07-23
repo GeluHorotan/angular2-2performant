@@ -11,14 +11,12 @@ export class HomeComponent implements OnInit {
   isLoggedIn: boolean = false;
   accountItem: { title: string; link: string } = { title: '', link: '' };
   addExtraClass: boolean = true;
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.updateTime();
-    this.authService.authStatusChanged.subscribe((loggedIn: boolean) => {
-      this.isLoggedIn = loggedIn;
-      this.updateAccountItem();
-    });
+    this.isLoggedIn = this.authService.isLoggedIn();
 
     this.updateAccountItem();
   }

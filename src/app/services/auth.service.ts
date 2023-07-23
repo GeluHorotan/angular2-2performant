@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly AUTH_KEY = 'userState';
+
   private apiUrl = '/api/users/sign_in';
 
   private userState = {
@@ -21,9 +23,9 @@ export class AuthService {
     rememberMe: false,
   };
 
-  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  private authStatusChangedSubject: Subject<boolean> = new Subject<boolean>();
   authStatusChanged: Observable<boolean> =
-    this.isLoggedInSubject.asObservable();
+    this.authStatusChangedSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
     this.loadUserState();
@@ -64,14 +66,17 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.userState.user !== null;
+    const userState =
+      localStorage.getItem(this.AUTH_KEY) ||
+      sessionStorage.getItem(this.AUTH_KEY);
+    return !!userState;
   }
 
   logout(): void {
     this.userState.user = null;
     this.clearUserState();
     this.router.navigate(['/login']);
-    this.isLoggedInSubject.next(false);
+    this.authStatusChangedSubject.next(false);
   }
 
   login(email: string, password: string, rememberMe: boolean): Observable<any> {
@@ -79,11 +84,12 @@ export class AuthService {
       email: email,
       password: password,
     };
-    this.isLoggedInSubject.next(true);
+
     return this.http.post<any>(this.apiUrl, { user }).pipe(
       tap((response) => {
         if (response && response.user) {
           this.setUser(response.user, rememberMe);
+          this.authStatusChangedSubject.next(true);
         }
       }),
       catchError((error) => {

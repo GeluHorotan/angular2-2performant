@@ -1,6 +1,7 @@
 import { Component, OnInit, VERSION } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   angularVersion = '';
-  isLoggedIn = false;
+  isLoggedIn: boolean = false;
   navItems = [
     { title: 'Home', link: '/' },
     { title: 'About', link: '/about' },
@@ -18,17 +19,31 @@ export class HeaderComponent implements OnInit {
 
   accountItem: { title: string; link: string } = { title: '', link: '' };
   showSidebar = false;
+  private authStatusSubscription: Subscription | null = null; // Initialize with null
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.authStatusChanged.subscribe((loggedIn: boolean) => {
-      this.isLoggedIn = loggedIn;
-      this.updateHeader();
-    });
-    this.angularVersion = VERSION.full;
     this.isLoggedIn = this.authService.isLoggedIn();
+    this.angularVersion = VERSION.full;
+
+    if (this.authService.authStatusChanged) {
+      // If authStatusChanged exists, subscribe to it
+      this.authStatusSubscription =
+        this.authService.authStatusChanged.subscribe((loggedIn: boolean) => {
+          this.isLoggedIn = loggedIn;
+          this.updateHeader();
+        });
+    }
+
     this.updateHeader();
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe to prevent memory leaks
+    if (this.authStatusSubscription) {
+      this.authStatusSubscription.unsubscribe();
+    }
   }
 
   updateHeader() {
