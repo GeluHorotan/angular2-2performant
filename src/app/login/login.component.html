@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div class="flex justify-center items-center h-screen">
+  <div
+    class="shadow-2xl bg-white p-7 rounded-xl flex items-center justify-center flex-col gap-6"
+  >
+    <h1 class="text-3xl font-bold">Login</h1>
+    <form (ngSubmit)="login()" class="flex flex-col gap-4">
+      <label class="text-xl">Email:</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="user.email"
+        required
+        class="px-4 py-2 border rounded-lg border-blue-400"
+      />
+
+      <label class="text-xl">Password:</label>
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="user.password"
+        required
+        class="px-4 py-2 border border-blue-400 rounded-lg"
+      />
+
+      <label class="flex items-center">
+        <input
+          type="checkbox"
+          [(ngModel)]="rememberMe"
+          class="mr-2"
+          name="rememberMe"
+        />
+        Remember Me
+      </label>
+
+      <button
+        type="submit"
+        class="px-4 py-2 background-primary text-white rounded-lg hover:bg-pink-600 txt-primary transition-all duration-200 ease-in-out"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+</div>

@@ -8,6 +8,8 @@ import { AccountComponent } from './account/account.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './services/auth.service';
 import { LayoutComponent } from './shared/layout/layout.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,7 +28,12 @@ const routes: Routes = [
     NotFoundComponent,
     LayoutComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    FormsModule,
+    HttpClientModule,
+  ],
   providers: [AuthService],
   bootstrap: [AppComponent],
 })
