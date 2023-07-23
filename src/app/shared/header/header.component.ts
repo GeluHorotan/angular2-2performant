@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, VERSION } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  angularVersion = 'Angular.JS';
+  angularVersion = '';
   isLoggedIn = false;
   navItems = [
     { title: 'Home', link: '/' },
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
       this.isLoggedIn = loggedIn;
       this.updateHeader();
     });
-
+    this.angularVersion = VERSION.full;
     this.isLoggedIn = this.authService.isLoggedIn();
     this.updateHeader();
   }
