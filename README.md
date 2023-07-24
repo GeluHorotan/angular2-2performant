@@ -2,6 +2,11 @@
 
 ### Prerequisites
 
+* Angular CLI
+   ```sh
+  npm install -g @angular/cli
+  ```
+
 * npm
   ```sh
   npm install npm@latest -g
